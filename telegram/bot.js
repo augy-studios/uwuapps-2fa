@@ -11,6 +11,11 @@ import { callbackHandler } from './handlers/callback.js';
 
 const bot = new Bot(BOT_TOKEN);
 
+bot.catch((err) => {
+  const ctx = err.ctx;
+  console.error(`Error handling update ${ctx.update.update_id}:`, err.error);
+});
+
 bot.command('start', startHandler);
 bot.command('login', loginHandler);
 bot.command('link', linkHandler);
@@ -36,4 +41,7 @@ bot.api.setMyCommands([
 ]);
 
 console.log('Starting UwU Apps 2FA Bot...');
-bot.start({ drop_pending_updates: true });
+bot.start({
+  drop_pending_updates: true,
+  onStart: (info) => console.log(`Bot @${info.username} is running`),
+});
