@@ -40,8 +40,14 @@ bot.api.setMyCommands([
   { command: 'help',   description: 'Show help information' },
 ]);
 
+process.on('unhandledRejection', (err) => console.error('Unhandled rejection:', err));
+process.on('uncaughtException', (err) => console.error('Uncaught exception:', err));
+
 console.log('Starting UwU Apps 2FA Bot...');
 bot.start({
   drop_pending_updates: true,
   onStart: (info) => console.log(`Bot @${info.username} is running`),
+}).catch((err) => {
+  console.error('Failed to start bot:', err);
+  process.exit(1);
 });
