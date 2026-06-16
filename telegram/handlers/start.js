@@ -13,6 +13,8 @@ export async function startHandler(ctx) {
       `👋 Hi ${user.first_name}!\n\n` +
       'I handle Telegram-based login for UwU Apps.\n\n' +
       '📌 Commands:\n' +
+      '  /start — Process a login request (usually opened automatically)\n' +
+      '  /login — Get a one-time login code to enter in a UwU App\n' +
       '  /link — Link your Telegram to your UwU Apps account\n' +
       '  /unlink — Remove the link\n' +
       '  /status — Check your link status\n' +
