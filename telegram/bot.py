@@ -5,6 +5,7 @@ Handles Telegram-based login (2FA) for UwU Apps users.
 
 import logging
 import asyncio
+from telegram import request as tg_request
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -43,9 +44,16 @@ async def post_init(application):
 def main():
     logger.info("Starting UwU Apps 2FA Bot...")
 
+    http_request = tg_request.HTTPXRequest(
+        connect_timeout=20,
+        read_timeout=20,
+        write_timeout=20,
+        pool_timeout=20,
+    )
     app = (
         ApplicationBuilder()
         .token(BOT_TOKEN)
+        .request(http_request)
         .post_init(post_init)
         .build()
     )
