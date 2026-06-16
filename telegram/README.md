@@ -11,7 +11,7 @@ All data is stored in Supabase alongside the existing `uwu_users` table.
 
 ### Flow A — Web app initiates (deep link)
 
-```bash
+```text
 Web app                          Bot (this repo)             Supabase
    │                                    │                        │
    │── User clicks "Login with Telegram"│                        │
@@ -32,7 +32,7 @@ Web app                          Bot (this repo)             Supabase
 
 ### Flow B — User initiates from Telegram (OTP code)
 
-```bash
+```text
 User (Telegram)                  Bot (this repo)           Web app
    │                                    │                      │
    │── /login ──────────────────────────►                      │
@@ -51,23 +51,22 @@ Both flows use **5-minute, single-use** tokens/codes.
 
 ## Project structure
 
-```bash
-uwuapps-2fa-bot/
-├── bot.py               # Entry point
-├── config.py            # Env var loader
-├── supabase_db.py       # All DB operations via Supabase (replaces SQLite)
-├── supabase_client.py   # Supabase client + uwu_users queries
-├── issue_token.py       # CLI utility: insert a test deep-link token
-├── migration.sql        # Run once in Supabase SQL editor to create tables
+```text
+telegram/
+├── bot.js               # Entry point
+├── config.js            # Env var loader
+├── db.js                # All DB operations via Supabase
+├── supabaseClient.js    # Supabase client + uwu_users queries
+├── issueToken.js        # CLI utility: insert a deep-link token
 ├── handlers/
-│   ├── start.py         # /start + deep-link token processing (Flow A)
-│   ├── login.py         # /login OTP generation (Flow B)
-│   ├── link.py          # /link conversation
-│   ├── unlink.py        # /unlink with confirmation
-│   ├── status.py        # /status
-│   ├── help.py          # /help
-│   └── callback.py      # Generic persisted button router
-├── requirements.txt
+│   ├── start.js         # /start + deep-link token processing (Flow A)
+│   ├── login.js         # /login OTP generation (Flow B)
+│   ├── link.js          # /link conversation
+│   ├── unlink.js        # /unlink with confirmation
+│   ├── status.js        # /status
+│   ├── help.js          # /help
+│   └── callback.js      # Generic persisted button router
+├── package.json
 ├── .env.example
 ├── .gitignore
 └── README.md
@@ -101,7 +100,7 @@ All tables have RLS enabled. Only the service role key (used by the bot and your
 5. `/setdescription` → `Log in to UwU Apps (uwuapps.org) using your Telegram account. Link once, log in everywhere.`
 6. `/setcommands` → paste:
 
-```bash
+```text
 start - Start or process a login request
 login - Get a one-time login code to enter in a UwU App
 link - Link your Telegram to your UwU Apps account
@@ -122,9 +121,7 @@ help - Show help information
 git clone https://github.com/YOUR_USERNAME/uwuapps-2fa.git
 cd uwuapps-2fa/telegram
 
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+npm install
 
 cp .env.example .env
 nano .env   # Fill in BOT_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_KEY
@@ -134,8 +131,7 @@ nano .env   # Fill in BOT_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_KEY
 
 ```bash
 tmux new -s uwu2fa
-source .venv/bin/activate
-python bot.py
+npm start
 # Ctrl+B then D to detach
 
 # Reattach: tmux attach -t uwu2fa
@@ -216,9 +212,8 @@ await supabase.from('uwutele_sessions').insert({
 ## Testing token issuance
 
 ```bash
-source .venv/bin/activate
-python issue_token.py "<uwu_user_id_uuid>" "test-app" "My Test App"
-# Outputs: Token, deep link, expiry
+node issueToken.js "<uwu_user_id_uuid>" "test-app" "My Test App"
+# Outputs: Token and deep link
 # Open the deep link in Telegram to test Flow A end-to-end
 ```
 
@@ -241,7 +236,7 @@ python issue_token.py "<uwu_user_id_uuid>" "test-app" "My Test App"
 tmux attach -t uwu2fa
 # Ctrl+C to stop
 git pull
-pip install -r requirements.txt  # only if requirements changed
-python bot.py
+npm install   # only if package.json changed
+npm start
 # Ctrl+B then D to detach
 ```
