@@ -1,0 +1,14 @@
+{
+  "name": "uwuapps-2fa-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node bot.js",
+    "issue-token": "node issueToken.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "dotenv": "^16.5.0",
+    "grammy": "^1.36.1"
+  }
+}
