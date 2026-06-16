@@ -119,8 +119,8 @@ help - Show help information
 ### 3. VPS setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/uwuapps-2fa-bot.git
-cd uwuapps-2fa-bot
+git clone https://github.com/YOUR_USERNAME/uwuapps-2fa.git
+cd uwuapps-2fa/telegram
 
 python3 -m venv .venv
 source .venv/bin/activate
