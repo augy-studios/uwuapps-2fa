@@ -31,22 +31,28 @@ bot.callbackQuery(/[\s\S]*/, callbackHandler);
 // Multi-step conversation text (e.g. /link flow)
 bot.on('message:text', linkStepHandler);
 
-bot.api.setMyCommands([
-  { command: 'start',  description: 'Start or process a login request' },
-  { command: 'login',  description: 'Get a one-time login code to enter in a UwU App' },
-  { command: 'link',   description: 'Link your Telegram to your UwU Apps account' },
-  { command: 'unlink', description: 'Unlink your Telegram from your UwU Apps account' },
-  { command: 'status', description: 'Check your link status' },
-  { command: 'help',   description: 'Show help information' },
-]);
-
 process.on('unhandledRejection', (err) => console.error('Unhandled rejection:', err));
 process.on('uncaughtException', (err) => console.error('Uncaught exception:', err));
 
 console.log('Starting UwU Apps 2FA Bot...');
 bot.start({
   drop_pending_updates: true,
-  onStart: (info) => console.log(`Bot @${info.username} is running`),
+  onStart: async (info) => {
+    console.log(`Bot @${info.username} is running`);
+    try {
+      await bot.api.setMyCommands([
+        { command: 'start',  description: 'Start or process a login request' },
+        { command: 'login',  description: 'Get a one-time login code to enter in a UwU App' },
+        { command: 'link',   description: 'Link your Telegram to your UwU Apps account' },
+        { command: 'unlink', description: 'Unlink your Telegram from your UwU Apps account' },
+        { command: 'status', description: 'Check your link status' },
+        { command: 'help',   description: 'Show help information' },
+      ]);
+      console.log('Commands registered.');
+    } catch (err) {
+      console.warn('setMyCommands failed (non-fatal):', err.message);
+    }
+  },
 }).catch((err) => {
   console.error('Failed to start bot:', err);
   process.exit(1);
