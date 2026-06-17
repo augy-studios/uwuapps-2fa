@@ -1,7 +1,7 @@
 # UwU Apps 2FA Bot
 
 Telegram bot (`@uwuapps_2fa_bot`) that provides **Login with Telegram** for all UwU Apps.  
-Users link their Telegram account to their UwU Apps account once, then log in to any UwU App instantly — via a deep link or a one-time OTP code.
+Users link their Telegram account to their UwU Apps account once, then log in to any UwU App instantly - via a deep link or a one-time OTP code.
 
 All data is stored in Supabase alongside the existing `uwu_users` table.
 
@@ -9,7 +9,7 @@ All data is stored in Supabase alongside the existing `uwu_users` table.
 
 ## How it works
 
-### Flow A — Web app initiates (deep link)
+### Flow A - Web app initiates (deep link)
 
 ```text
 Web app                          Bot (this repo)             Supabase
@@ -30,7 +30,7 @@ Web app                          Bot (this repo)             Supabase
    │── User is now logged in            │                        │
 ```
 
-### Flow B — User initiates from Telegram (OTP code)
+### Flow B - User initiates from Telegram (OTP code)
 
 ```text
 User (Telegram)                  Bot (this repo)           Web app
@@ -85,7 +85,7 @@ telegram/
 | `uwutele_link_state` | In-progress `/link` conversation state |
 | `uwutele_buttons` | Persisted inline keyboard buttons (survive restarts) |
 
-All tables have RLS enabled. Only the service role key (used by the bot and your Vercel backends) can access them — no public/anon access.
+All tables have RLS enabled. Only the service role key (used by the bot and your Vercel backends) can access them - no public/anon access.
 
 ---
 
@@ -109,7 +109,7 @@ status - Check your link status
 help - Show help information
 ```
 
-### 2. Supabase — run the migration
+### 2. Supabase - run the migration
 
 1. Open your Supabase project → **SQL Editor** → **New query**
 2. Paste the contents of `migration.sql` and run it
@@ -141,9 +141,9 @@ npm start
 
 ## Web app integration
 
-Your web app backends (Vercel) can use `@supabase/supabase-js` with the **service role key** to insert tokens and verify OTPs directly — no VPS proxy needed.
+Your web app backends (Vercel) can use `@supabase/supabase-js` with the **service role key** to insert tokens and verify OTPs directly - no VPS proxy needed.
 
-### Flow A — Deep link (web app initiates)
+### Flow A - Deep link (web app initiates)
 
 ```javascript
 import { createClient } from '@supabase/supabase-js'
@@ -177,7 +177,7 @@ if (data?.used) {
 }
 ```
 
-### Flow B — OTP code (user initiates from Telegram)
+### Flow B - OTP code (user initiates from Telegram)
 
 ```javascript
 // User types their 6-digit code into the login form
@@ -223,9 +223,9 @@ node issueToken.js "<uwu_user_id_uuid>" "test-app" "My Test App"
 
 | Variable | Required | Default | Description |
 | --- | --- | --- | --- |
-| `BOT_TOKEN` | ✅ | — | From @BotFather |
-| `SUPABASE_URL` | ✅ | — | Your Supabase project URL |
-| `SUPABASE_SERVICE_KEY` | ✅ | — | Supabase service role key |
+| `BOT_TOKEN` | ✅ | - | From @BotFather |
+| `SUPABASE_URL` | ✅ | - | Your Supabase project URL |
+| `SUPABASE_SERVICE_KEY` | ✅ | - | Supabase service role key |
 | `TOKEN_EXPIRY_SECONDS` | ❌ | `300` | Token/OTP lifetime in seconds |
 
 ---

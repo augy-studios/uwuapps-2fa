@@ -44,7 +44,7 @@ export async function deleteLink(telegramId) {
     .eq('telegram_id', telegramId);
 }
 
-// ── Token helpers (Flow A — deep link) ───────────────────────────────────────
+// ── Token helpers (Flow A - deep link) ───────────────────────────────────────
 
 export async function insertToken({ token, uwuUserId, appId, appLabel, expirySeconds }) {
   await getSupabase()
@@ -84,7 +84,7 @@ export async function purgeExpiredTokens() {
     .lt('expires_at', nowIso());
 }
 
-// ── OTP helpers (Flow B — bot-initiated) ──────────────────────────────────────
+// ── OTP helpers (Flow B - bot-initiated) ──────────────────────────────────────
 
 export async function insertOtp({ otp, telegramId, uwuUserId, appId, expirySeconds }) {
   await getSupabase()

@@ -13,12 +13,12 @@ export async function startHandler(ctx) {
       `👋 Hi ${user.first_name}!\n\n` +
       'I handle Telegram-based login for UwU Apps.\n\n' +
       '📌 Commands:\n' +
-      '  /start — Process a login request (usually opened automatically)\n' +
-      '  /login — Get a one-time login code to enter in a UwU App\n' +
-      '  /link — Link your Telegram to your UwU Apps account\n' +
-      '  /unlink — Remove the link\n' +
-      '  /status — Check your link status\n' +
-      '  /help — More information\n\n' +
+      '  /start - Process a login request (usually opened automatically)\n' +
+      '  /login - Get a one-time login code to enter in a UwU App\n' +
+      '  /link - Link your Telegram to your UwU Apps account\n' +
+      '  /unlink - Remove the link\n' +
+      '  /status - Check your link status\n' +
+      '  /help - More information\n\n' +
       'To log in to a UwU App via Telegram, click the "Login with Telegram" button inside the app.'
     );
     return;
@@ -67,7 +67,7 @@ export async function startHandler(ctx) {
       `✅ Login approved!\n\n` +
       `🌐 App: ${appLabel}\n` +
       `👤 Logged in as: ${display} (@${uwuUser.username})\n\n` +
-      'You can return to the app — you are now logged in.'
+      'You can return to the app - you are now logged in.'
     );
     return;
   }
@@ -98,7 +98,7 @@ export async function startHandler(ctx) {
     `🎉 Your Telegram account has been linked to UwU Apps and your login is approved!\n\n` +
     `🌐 App: ${appLabel}\n` +
     `👤 Logged in as: ${display} (@${uwuUser.username})\n\n` +
-    'You can return to the app — you are now logged in.\n\n' +
+    'You can return to the app - you are now logged in.\n\n' +
     'ℹ️ Future logins from any UwU App will be approved automatically via this chat.'
   );
 }
